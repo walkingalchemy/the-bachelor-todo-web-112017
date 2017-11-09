@@ -2066,9 +2066,11 @@ end
 # get_first_name_of_season_winner(data, "season 16")
 
 def get_contestant_name(data, occupation)
-  data[season].each do |contestant_hash|
-    if contestant_hash["occupation"] == occupation
-      return contestant_hash["name"]
+  data.each do |season, contestant_list|
+    contestant_list.each do |contestant_hash|
+      if contestant_hash["occupation"] == occupation
+        return contestant_hash["name"]
+      end
     end
   end
 end
@@ -2099,11 +2101,9 @@ end
 def get_average_age_for_season(data, season)
   age_total = 0
   total_contestants = 0
-  data.each do |seasons, contestants|
-    contestants.each do |contestant_hash|
-      age_total += contestant_hash["age"].to_i
-      total_contestants += 1
-    end
+  data[season].each do |contestant_hash|
+    age_total += contestant_hash["age"].to_i
+    total_contestants += 1
   end
-  return age_total/total_contestants
+  return (age_total/total_contestants.to_f).round(0)
 end
