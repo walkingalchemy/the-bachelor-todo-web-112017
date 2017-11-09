@@ -2066,9 +2066,11 @@ end
 # get_first_name_of_season_winner(data, "season 16")
 
 def get_contestant_name(data, occupation)
-  data[season].each do |contestant_hash|
-    if contestant_hash["occupation"] == occupation
-      return contestant_hash["name"]
+  data.each do |season, contestant_list|
+    contestant_list.each do |contestant_hash|
+      if contestant_hash["occupation"] == occupation
+        return contestant_hash["name"]
+      end
     end
   end
 end
